@@ -88,7 +88,7 @@ DATABASES = {
 }
 
 # for uploading to heroku, following heroku's env var for database_url format
-if os.environ.get('DATABASE_URL')!='localhost' && os.environ.get('DATABASE_URL'):
+if ((os.environ.get('DATABASE_URL')!='localhost') && os.environ.get('DATABASE_URL')):
 
     # split the environment variable up into the respective fields
     database_credentials = os.environ.get('DATABASE_URL')
