@@ -2,4 +2,4 @@ A blog site written in python django as a mini project to familiarise myself wit
 
 TODO:
 Add several files to gitignore
-Get wireframe working on heroku
+Get wireframe up
