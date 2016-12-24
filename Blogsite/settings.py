@@ -79,7 +79,7 @@ DATABASES = {
     # Sensitive stuff here. Should think about shifting it to a hidden directory? Or is settings already hidden.
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'testdb',
+        'NAME': 'blogsite',
         'USER': 'daniel',
         'PASSWORD': 'daniel',
         'HOST': 'localhost',
@@ -88,7 +88,7 @@ DATABASES = {
 }
 
 # for uploading to heroku, following heroku's env var for database_url format
-if os.environ.get('DATABASE_URL')!='localhost':
+if os.environ.get('DATABASE_URL')!='localhost' && os.environ.get('DATABASE_URL'):
 
     # split the environment variable up into the respective fields
     database_credentials = os.environ.get('DATABASE_URL')
