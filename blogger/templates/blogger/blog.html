@@ -1,0 +1,7 @@
+<p>This is the blog page</p>
+{% if username %}
+	<p>User is logged in as {{ username }}</p>
+{% endif %}	
+<a href="{% url 'blogger:blogmanager' %}">Blog Manager</a>
+<a href="{% url 'blogger:accountmanager' %}">Account Manager</a>
+<a href="{% url 'blogger:index' %}">Back to index</a>
