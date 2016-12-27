@@ -14,10 +14,11 @@ class Blog(models.Model):
 	def __str__(self):
 		return self.blog_title
 
-class Post(models.Model):
+class BlogPost(models.Model):
 	blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
-	post_title = models.CharField(max_length=200)
-	post_text = models.CharField(max_length=100000)
+	blogpost_title = models.CharField(max_length=200)
+	blogpost_text = models.CharField(max_length=100000)
+	pub_date = models.DateTimeField('date published')
 
 	def __str__(self):
 		return self.post_title

@@ -2,6 +2,17 @@
 {% if username %}
 	<p>User is logged in as {{ username }}</p>
 {% endif %}	
+{% if blog_title %}
+	<p>The title of this blog is {{ blog_title }}.</p>
+{% endif %}	
+{% if blog %}
+	<p>The blog title is {{ blog.blog_title }}</p>
+	{% for blogpost in blog.blogpost_set.all %}
+		<p>{{ blogpost.blogpost_title }}</p>
+		<p>{{ blogpost.blogpost_text }}</p>
+		<p>{{ blogpost.pub_date }}</p>
+	{% endfor %}
+{% endif %}
 <a href="{% url 'blogger:blogmanager' %}">Blog Manager</a>
 <a href="{% url 'blogger:accountmanager' %}">Account Manager</a>
 <a href="{% url 'blogger:index' %}">Back to index</a>

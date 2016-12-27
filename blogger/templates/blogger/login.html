@@ -4,12 +4,13 @@
 {% endif %}
 <form action="{% url 'blogger:login' %}" method="post">
 {% csrf_token %}
-<label for="username">Username</label>
+{{ form.as_p }}
+<!-- <label for="username">Username</label>
 <input type="text" name="username" id="username">
 <br/>
 <label for="password">Password</label>
 <input type="password" name="password" id="password">
-<br/>
+<br/> -->
 <input type="submit" value="login">
 </form>
 <a href="{% url 'blogger:signup' %}">Sign up</a>
