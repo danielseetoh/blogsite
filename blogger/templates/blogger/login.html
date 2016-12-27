@@ -1,4 +1,7 @@
 <p>This is the login page</p>
+{% if error_message %}
+	<p><strong>{{ error_message }}</strong></p>
+{% endif %}
 <form action="{% url 'blogger:login' %}" method="post">
 {% csrf_token %}
 <label for="username">Username</label>

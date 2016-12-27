@@ -21,4 +21,5 @@ urlpatterns = [
 	url(r'^$', blogger.views.IndexView.as_view()),
 	url(r'^blogger/', include('blogger.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/login/', blogger.views.LoginView.as_view()),
 ]

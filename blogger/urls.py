@@ -1,5 +1,4 @@
 from django.conf.urls import url
-
 from . import views
 
 app_name = 'blogger'
@@ -12,4 +11,6 @@ urlpatterns = [
 	url(r'^blogmanager$', views.BlogManagerView.as_view(), name='blogmanager'),
 	url(r'^accountmanager$', views.AccountManagerView.as_view(), name='accountmanager'),
 	url(r'^blogpost$', views.BlogPostView.as_view(), name='blogpost'),
+	url(r'^logout$', views.logoutView, name='logout'),
+	
 ]

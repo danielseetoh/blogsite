@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse, Http404, HttpResponseRedirect
@@ -39,7 +39,10 @@ class SignupView(View):
 		username = request.POST['username']
 		email = request.POST['email']
 		password = request.POST['password']
-		if User.objects.filter(username=username).exists():
+		blog_title = request.POST['blog_title']
+		if Blog.objects.filter(blog_title=blog_title).exists():
+			return render(request, 'blogger/signup.html', {'error_message': 'Blog title already exists.'})
+		elif User.objects.filter(username=username).exists():
 			return render(request, 'blogger/signup.html', {'error_message': 'Username already exists.'})
 		else:
 			user = User.objects.create_user(username, email, password)
@@ -48,6 +51,7 @@ class SignupView(View):
 			return HttpResponseRedirect(reverse('blogger:blogmanager'))
 
 class BlogView(View):
+
 	def get(self, request):
 		context = {}
 		if self.request.user.is_authenticated():
@@ -75,3 +79,6 @@ class BlogPostView(View):
 	def get(self, request):
 		return render(request, 'blogger/blogpost.html')
 
+def logoutView(request):
+	logout(request)
+	return render(request, 'blogger/index.html')
