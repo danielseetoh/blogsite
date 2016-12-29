@@ -1,6 +1,5 @@
 A blog site written in python django as a mini project to familiarise myself with this framework.
 
 TODO:
-Allow image uploading function
 Include styling and javascript
-Implement infinite scroll
+Implement infinite scroll (optional)

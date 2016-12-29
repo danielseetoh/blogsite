@@ -21,5 +21,17 @@ class BlogPost(models.Model):
 	pub_date = models.DateTimeField('date published')
 
 	def __str__(self):
-		return self.post_title
+		return self.blogpost_title
 
+class ImageDoc(models.Model):
+	image = models.ImageField(upload_to='images/%Y/%m/%d')
+	blogpost = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
+
+class BlogPostComment(models.Model):
+	blogpost = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
+	commenter = models.CharField(max_length=100)
+	comment_content = models.CharField(max_length=1000)
+	pub_date = models.DateTimeField('date published')
+
+	def __str__(self):
+		return self.commenter

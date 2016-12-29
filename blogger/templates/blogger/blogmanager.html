@@ -3,11 +3,11 @@
 	<p>User is logged in as {{ username }}</p>
 {% endif %}	
 <br/>
-{% for blogpost in blog.blogpost_set.all %}
+{% for blogpost in blogposts %}
 	<a href="{% url 'blogger:blogpostedit' blogpost.id %}"><p>{{ blogpost.blogpost_title }}</p></a>
 {% endfor %}
 <a href="{% url 'blogger:blogpostcreate' %}">Create a blogpost</a>
 <br/>
 <a href="{% url 'blogger:accountmanager' %}">Account Manager</a>
-<a href="{% url 'blogger:blog' blog.blog_title%}">To the blog</a>
+<a href="{% url 'blogger:blog' blog.blog_title %}">To the blog</a>
 <a href="{% url 'blogger:logout' %}">Logout</a>

@@ -15,3 +15,8 @@ class LoginForm(forms.Form):
 class BlogPostForm(forms.Form):
 	blogpost_title = forms.CharField(label='Blog Title')
 	blogpost_text = forms.CharField(label='', widget=forms.Textarea)
+	image = forms.ImageField(label='Image', required=False)
+
+class CommentForm(forms.Form):
+	comment = forms.CharField(label='Add a comment', widget=forms.Textarea)
+	prev_url = forms.CharField(widget=forms.HiddenInput())

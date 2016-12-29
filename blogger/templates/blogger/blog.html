@@ -7,8 +7,8 @@
 {% endif %}	
 {% if blog %}
 	<p>The blog title is {{ blog.blog_title }}</p>
-	{% for blogpost in blog.blogpost_set.all %}
-		<p>{{ blogpost.blogpost_title }}</p>
+	{% for blogpost in blogposts %}
+		<p><a href="{% url 'blogger:blogpost' blog.blog_title blogpost.id blogpost.blogpost_title %}">{{ blogpost.blogpost_title }}</a></p>
 		<p>{{ blogpost.blogpost_text }}</p>
 		<p>{{ blogpost.pub_date }}</p>
 	{% endfor %}

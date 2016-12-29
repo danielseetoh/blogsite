@@ -1,17 +1,26 @@
-<p>This is the blogpost page. This page is meant to create and edit blogposts.</p>
+<p>This is the blogpost page</p>
 
-{% if blogpost %}
-	<form action="{% url 'blogger:blogpostedit' blogpost.id %}" method="post">
-	<input type="submit" name='delete' value="Delete Post">
-{% else %}
-	<form action="{% url 'blogger:blogpostcreate' %}" method="post">
+{% if username %}
+	<p>User is logged in as {{ username }}</p>
+{% endif %}	
+<p>{{ blogpost.blogpost_title }}</a></p>
+<p>{{ blogpost.blogpost_text }}</p>
+<p>{{ blogpost.pub_date }}</p>
+{% if image %}
+	<img src="{{ image.image.url }}">
 {% endif %}
 
-{% csrf_token %}
-{{ form.as_p }}
+{% for comment in comments %}
+	<p><b>{{ comment.commenter }}</b><p>
+	<p>{{ comment.comment_content }}</p>
+{% endfor %}
 
+<br/>
+<form action="{% url 'blogger:blogpostcomment' blogpost.blog.blog_title blogpost.id blogpost.blogpost_title%}" method="post">
+{% csrf_token %}
+{{ comment_form }}
 <input type="submit" value="submit">
 </form>
-<br/>
-<a href="{% url 'blogger:blogmanager' %}">Back to blog manager</a>
-<a href="{% url 'blogger:logout' %}">Logout</a>
+
+
+<a href="{% url 'blogger:blog' blog.blog_title %}">To the blog</a>

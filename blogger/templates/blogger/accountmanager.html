@@ -1,3 +1,7 @@
 <p>This is the account manager</p>
+<form action="{% url 'blogger:accountmanager' %}" method="post">
+{% csrf_token %}
+<input type="submit" name="delete" value="Delete Account">
+</form>
 <a href="{% url 'blogger:blog' blog.blog_title %}">Back to blog</a>
 <a href="{% url 'blogger:blogmanager' %}">Back to blog manager</a>
