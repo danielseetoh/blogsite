@@ -169,7 +169,7 @@ STATIC_URL = '/static/'
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
-    os.path.join(BASE_DIR, 'media'),
+    # os.path.join(BASE_DIR, 'media'),
 )
 
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
@@ -180,5 +180,5 @@ STATICFILES_DIRS = (
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'   
 
