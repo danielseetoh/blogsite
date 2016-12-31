@@ -5,4 +5,4 @@ psycopg2==2.6.2
 whitenoise==2.0.6
 requests==2.9.1
 pillow==2.7.0
-dateutil==2.6.0
+python-dateutil==2.6.0
