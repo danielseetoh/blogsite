@@ -12,9 +12,9 @@ from django.urls import reverse
 from django.db.models import F
 from django.views import generic, View
 from django.utils import timezone
-from dateutil.relativedelta import relativedelta
 from .models import *
 from .forms import *
+import datetime
 
 # Create your views here.
 
@@ -94,7 +94,7 @@ class BlogView(View):
 			now = timezone.now()
 			while now>=oldest_blog_date or (now.month==oldest_blog_date.month and now.year==oldest_blog_date.year):
 				context['dates'].append((now.strftime('%B'),now.year))
-				now = now - relativedelta(months=1)
+				now = now - datetime.timedelta(months=1)
 		if self.request.user.is_authenticated():
 			context['username'] = request.user.username
 		return render(request, 'blogger/blog.html', context)
@@ -128,7 +128,7 @@ class BlogView(View):
 			now = timezone.now()
 			while now>=oldest_blog_date or (now.month==oldest_blog_date.month and now.year==oldest_blog_date.year):
 				context['dates'].append((now.strftime('%B'),now.year))
-				now = now - relativedelta(months=1)
+				now = now - datetime.timedelta(months=1)
 		return render(request, 'blogger/blog.html', context)
 
 class BlogPostView(View):
@@ -174,7 +174,7 @@ class BlogManagerView(View):
 			while now>=oldest_blog_date or (now.month==oldest_blog_date.month and now.year==oldest_blog_date.year):
 				context['dates'].append((now.strftime('%B'),now.year))
 
-				now = now - relativedelta(months=1)
+				now = now - datetime.timedelta(months=1)
 		return render(request, 'blogger/blogmanager.html', context)
 	def post(self, request):
 		blog = get_object_or_404(Blog, user=request.user)
@@ -205,7 +205,7 @@ class BlogManagerView(View):
 			now = timezone.now()
 			while now>=oldest_blog_date or (now.month==oldest_blog_date.month and now.year==oldest_blog_date.year):
 				context['dates'].append((now.strftime('%B'),now.year))
-				now = now - relativedelta(months=1)
+				now = now - datetime.timedelta(months=1)
 		return render(request, 'blogger/blogmanager.html', context)
 
 @method_decorator(login_required, name='get')
