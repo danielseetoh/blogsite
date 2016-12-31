@@ -1,5 +1,5 @@
 A blog site written in python django as a mini project to familiarise myself with this framework.
 
 TODO:
-Include styling and javascript
-Implement infinite scroll (optional)
+Set debug to false before uploading
+Use collect static in production

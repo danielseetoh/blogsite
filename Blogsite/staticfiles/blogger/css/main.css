@@ -1,0 +1,57 @@
+/*body {
+	background: white url("images/background.gif") no-repeat right bottom;
+}*/
+
+.navbar-inverse {
+    background-image: linear-gradient(to bottom,#072d4e 0,#7ca9d2 100%);
+    border: none;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #ffffff;
+}
+
+.jumbotron {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    color: inherit;
+    background-color: #d9edf7;
+}
+
+.topnav {
+    font-size: 14px;
+    background-color: rgba(19, 52, 76, 0.74);
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+    color: #d9edf7;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #f5f5f5;
+}
+
+
+.navbar-default .navbar-brand {
+    color: #f5f5f5;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+    color: #d9edf7;
+    background-color: transparent;
+}
+
+.container.topnav {
+    background-color: transparent;
+}
+
+.navbar-brand.topnav {
+    background-color: transparent;
+}
+
+.navbar-default {
+    border-color: transparent;
+}

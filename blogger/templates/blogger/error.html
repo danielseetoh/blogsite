@@ -1,1 +1,6 @@
-<p>This is the error page</p>
+{% include "./maintemplateheader.html" %}
+{% load static %}
+<div class="container padded"></div>
+
+<h2 class="text-center">Looks like you took a wrong turn here</h2>
+<img src="{% static 'blogger/img/whoops.jpg' %}" class="text-center">

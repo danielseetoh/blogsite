@@ -1,0 +1,126 @@
+/*body {
+	background: white url("images/background.gif") no-repeat right bottom;
+}*/
+
+.navbar-inverse {
+    background-image: linear-gradient(to bottom,#072d4e 0,#7ca9d2 100%);
+    border: none;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #ffffff;
+}
+
+.jumbotron {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    color: inherit;
+    background-color: #d9edf7;
+}
+
+.topnav {
+    font-size: 14px;
+    background-color: rgba(19, 52, 76, 0.74);
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+    color: #d9edf7;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #f5f5f5;
+}
+
+
+.navbar-default .navbar-brand {
+    color: #f5f5f5;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+    color: #d9edf7;
+    background-color: transparent;
+}
+
+.container.topnav {
+    background-color: transparent;
+}
+
+.navbar-brand.topnav {
+    background-color: transparent;
+}
+
+.navbar-default {
+    border-color: transparent;
+}
+
+.container.padded {
+    margin-bottom: 80px;
+}
+
+.container.padded.blog {
+    margin-bottom: 10px;
+}
+
+.errorlist {
+    color: red;
+}
+
+.navbar-fixed-bottom, .navbar-fixed-top {
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+/*body {
+        background-color: rgba(51, 122, 183, 0.18);
+}*/
+
+.blogmanager {
+    background-color: #d9ebf7;
+}
+
+.blogpost {
+
+}
+
+.blogpost img{
+    width:150px;
+    height:150px;
+}
+
+.wordwrap {     
+   word-wrap: break-word;      /* IE */
+}
+
+a:focus, a:hover {
+    color: #23527c;
+    text-decoration: none;
+}
+
+.account {
+    background: url("../img/sky.jpg") no-repeat center center;
+    background-size: cover;
+    min-height:100%;
+    width:100%;
+    height:auto;
+}
+
+h2 small {
+    color: #f5f5f5;
+}
+
+img {
+    max-width:100%;
+    max-height:100%;
+}
+
+/*.blogbanner {
+    padding: 150px 0;
+    color: #f8f8f8;
+    background: url(../img/laptop.jpg) no-repeat center center;
+    background-size: cover;
+}*/

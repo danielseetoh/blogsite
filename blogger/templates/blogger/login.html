@@ -1,10 +1,35 @@
-<p>This is the login page</p>
+{% include "./maintemplateheader.html" %}
+{% load static %}
+
+	<div class="container padded"></div>
+    <div class="container">
+        <h2 class="text-center">Log in</h2>
+        <hr>
+        <div class="col-sm-6 col-sm-offset-3 panel panel-default" >
+            <div class="panel-body">
+            {% if error_message %}
+                <div class="alert alert-danger" role="alert">
+                    <p class="error"><strong>Error:</strong> {{ error_message }}
+                </div>
+            {% endif %}
+                <form class="form-signin" action="{% url 'blogger:login' %}" method = "POST">
+                {% csrf_token %}
+                {{ form }}
+                    <br/>
+                    <button id="btnLogin" class="btn btn-md btn-primary btn-block" type="submit">Login</button>
+                </form>  
+            </div>
+        </div>
+    </div>
+<!-- <p>This is the login page</p>
 {% if error_message %}
 	<p><strong>{{ error_message }}</strong></p>
-{% endif %}
-<form action="{% url 'blogger:login' %}" method="post">
+{% endif %} -->
+<!-- <form action="{% url 'blogger:login' %}" method="post">
 {% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="login">
 </form>
-<a href="{% url 'blogger:signup' %}">Sign up</a>
+<a href="{% url 'blogger:signup' %}">Sign up</a> -->
+
+{% include "./maintemplatefooter.html" %}

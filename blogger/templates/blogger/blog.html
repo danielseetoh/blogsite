@@ -1,19 +1,71 @@
-<p>This is the blog page</p>
-{% if username %}
-	<p>User is logged in as {{ username }}</p>
-{% endif %}	
-{% if blog_title %}
-	<p>The title of this blog is {{ blog_title }}.</p>
-{% endif %}	
-{% if blog %}
-	<p>The blog title is {{ blog.blog_title }}</p>
-	{% for blogpost in blogposts %}
-		<p><a href="{% url 'blogger:blogpost' blog.blog_title blogpost.id blogpost.blogpost_title %}">{{ blogpost.blogpost_title }}</a></p>
-		<p>{{ blogpost.blogpost_text }}</p>
-		<p>{{ blogpost.pub_date }}</p>
-	{% endfor %}
-{% endif %}
-<a href="{% url 'blogger:blogmanager' %}">Blog Manager</a>
-<a href="{% url 'blogger:accountmanager' %}">Account Manager</a>
-<a href="{% url 'blogger:index' %}">Back to index</a>
-<a href="{% url 'blogger:logout' %}">Logout</a>
+{% include "./maintemplateheader.html" %}
+{% load static %}
+{% include "./blogtemplate.html" %}
+
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<hr>
+<div class="row">
+		<div class="col-md-9">
+		{% if blogposts %}
+			{% for blogpost,image,blogpost_text in blogposts %}
+			<h2>{{ blogpost.blogpost_title }}</h2>
+			<small>&nbsp&nbsp&nbsp{{blogpost.pub_date}}</small>
+			<div class="panel panel-default blogpost">	
+				<div class="panel-body">
+					{% if image %}
+					<div class="col-md-4">
+					<img src="{{ image.image.url }}">
+					</div>
+					<div class="col-md-8">
+					<p class="wordwrap">
+					{{blogpost_text}}
+					</p>
+					</div>
+					{% else %}
+					<div class="col-md-12">
+					<p class="wordwrap">
+					{{blogpost_text}}
+					</p>
+					</div>
+					{% endif %}
+				</div>
+				<div class="panel-body">
+				<a href="{% url 'blogger:blogpost' blog.blog_title blogpost.id blogpost.blogpost_title %}">
+				<button type="button" class="btn btn-default pull-right">Read More </button>
+				</a>
+				
+				</div>
+			</div>
+			{% endfor %}
+		{% else %}
+		<h4>No Posts Yet!</h4>
+		{% endif %}
+		</div>
+
+		<div class="col-md-3">
+		<h3>Filters</h3>
+			<div class="panel panel-info">
+			<div class="panel-heading">
+			Posts From
+			</div>
+			<div class="panel-body">
+			<form action="{% url 'blogger:blog' blog.blog_title %}" method="POST">
+			{% csrf_token %}
+			<input type="submit" name="datefilter" value="All Time" style="background:none; border-width:0px; color:blue;"/>
+			<br/>
+			{% for month,year in dates %}
+			<input type="submit" name="datefilter" value="{{ month }} {{ year }}" style="background:none; border-width:0px; color:blue;"/>
+			<br/>
+			{% endfor %}
+			</form>
+			</div>
+			</div>
+		</div>
+	</div>
+
+	</div>
+	</div>
+	</div>
+	<br/>

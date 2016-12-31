@@ -9,6 +9,9 @@ from django.utils import timezone
 class Blog(models.Model):
 	blog_title = models.CharField(max_length=100, primary_key=True)
 	pub_date = models.DateTimeField('date published')
+	blog_description = models.CharField(max_length=300, null=True)
+	blog_banner = models.ImageField(upload_to='images/%Y/%m/%d', null=True)
+	blog_background_color = models.CharField(max_length=30, null=True)
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 	def __str__(self):

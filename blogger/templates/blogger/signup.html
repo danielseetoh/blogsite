@@ -1,4 +1,28 @@
-<p>This is the signup page</p>
+{% include "./maintemplateheader.html" %}
+{% load static %}
+
+	<div class="container padded"></div>
+    <div class="container">
+        <h2 class="text-center">Sign Up</h2>
+        <hr>
+        <div class="col-sm-6 col-sm-offset-3 panel panel-default" >
+            <div class="panel-body">
+            {% if error_message %}
+                <div class="alert alert-danger" role="alert">
+                    <p class="error"><strong>Error:</strong> {{ error_message }}
+                </div>
+            {% endif %}
+                <form class="form-signin" action="{% url 'blogger:signup' %}" method = "POST">
+                {% csrf_token %}
+                {{ form }}
+                    <br/>
+                    <button id="btnLogin" class="btn btn-md btn-primary btn-block" type="submit">Sign Up</button>
+                </form>  
+            </div>
+        </div>
+    </div>
+
+<!-- <p>This is the signup page</p>
 {% if error_message %}
 	<p><strong>{{ error_message }}</strong></p>
 {% endif %}
@@ -7,4 +31,6 @@
 {{ form.as_p }}
 <br/>
 <input type="submit" value="submit">
-</form>
+</form> -->
+
+{% include "./maintemplatefooter.html" %}

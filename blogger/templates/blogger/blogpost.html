@@ -1,26 +1,55 @@
-<p>This is the blogpost page</p>
+{% include "./maintemplateheader.html" %}
+{% load static %}
+{% include "./blogtemplate.html" %}
 
-{% if username %}
-	<p>User is logged in as {{ username }}</p>
-{% endif %}	
-<p>{{ blogpost.blogpost_title }}</a></p>
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<hr>
+<a href="{% url 'blogger:blog' blog.blog_title %}">
+<button type="button" class="btn btn-primary pull-right">Back to the blog</button></a>
+<h1>{{ blogpost.blogpost_title }}</h1>
+<small>&nbsp&nbsp&nbsp{{blogpost.pub_date}}</small>
+
+<div class="panel panel-default">	
+<div class="panel-body">
+
+	<div class="col-md-12">
+	<p class="wordwrap">
+	{{blogpost.blogpost_text}}
+	</p>
+	</div>
+	{% if image %}
+	<div class="col-md-10 col-md-offset-1">
+	<p class="text-center">
+	<img src="{{ image.image.url }}">
+	</p>
+	</div>
+	{% endif %}
+</div>
+</div>
+<br/>
+<hr>
+
+<!-- <p>{{ blogpost.blogpost_title }}</a></p>
 <p>{{ blogpost.blogpost_text }}</p>
 <p>{{ blogpost.pub_date }}</p>
 {% if image %}
 	<img src="{{ image.image.url }}">
-{% endif %}
+{% endif %} -->
 
-{% for comment in comments %}
-	<p><b>{{ comment.commenter }}</b><p>
-	<p>{{ comment.comment_content }}</p>
-{% endfor %}
+{% include "./commentstemplate.html" %}
 
 <br/>
 <form action="{% url 'blogger:blogpostcomment' blogpost.blog.blog_title blogpost.id blogpost.blogpost_title%}" method="post">
 {% csrf_token %}
 {{ comment_form }}
-<input type="submit" value="submit">
+<br/>
+<button class="btn btn-primary btn-lg" type="submit" value="submit">Submit Comment
+</button>
 </form>
 
-
-<a href="{% url 'blogger:blog' blog.blog_title %}">To the blog</a>
+</div>
+</div>
+</div>
+<br/>

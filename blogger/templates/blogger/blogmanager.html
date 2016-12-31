@@ -1,13 +1,102 @@
-<p>This is the blog manager</p>
-{% if username %}
-	<p>User is logged in as {{ username }}</p>
-{% endif %}	
+{% include "./maintemplateheader.html" %}
+{% load static %}
+<div class="container padded"></div>
+
+<div class="container">
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	
+	<div class="container-fluid">
+	<div class="row">
+		<div class="page-header">
+	    	<h1 class="text-center">Blog Manager</h1>
+		</div>	
+	</div>
+	</div>
+	<div class="blogmanager">
+	<br>
+	<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-9">
+		{% if blogposts %}
+			{% for blogpost,image,blogpost_text in blogposts %}
+			<div class="panel panel-default blogpost">
+				<div class="panel-heading">
+				
+				<h4 class="panel-title">{{ blogpost.blogpost_title }}</h4>
+				</div>
+				<div class="panel-body">
+					{% if image %}
+					<div class="col-md-4">
+					<img src="{{ image.image.url }}">
+					</div>
+					<div class="col-md-8">
+					<p class="wordwrap">
+					{{blogpost_text}}
+					</p>
+					</div>
+					{% else %}
+					<div class="col-md-12">
+					<p class="wordwrap">
+					{{blogpost_text}}
+					</p>
+					</div>
+					{% endif %}
+				</div>
+				<div class="panel-body">
+				<div class="btn-group btn-group-xs pull-right" role="group">
+				<a href="{% url 'blogger:blogpostedit' blogpost.id %}">
+				<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp  {{blogpost.blogpostcomment_set.all.count}}  comments</button>
+				<button type="button" class="btn btn-default">Edit</button>
+				</a>
+				</div>
+				<small>{{blogpost.pub_date}}</small>
+				</div>
+			</div>
+			{% endfor %}
+		{% else %}
+		<div class="panel panel-default blogpost">
+		<div class="panel-body">
+		No posts yet!
+		</div>
+		</div>
+		{% endif %}
+		</div>
+
+		<div class="col-md-3">
+			<a href="{% url 'blogger:blog' blog.blog_title %}">
+			<button type="button" class="btn  btn-default btn-block">Check out your blog!</button>
+			</a>
+			<a href="{% url 'blogger:blogpostcreate' %}">
+			<button type="button" class="btn  btn-default btn-block">Create a new post</button>
+			</a>
+			<a href="{% url 'blogger:accountmanager' %}">
+			<button type="button" class="btn  btn-default btn-block">Go to your account</button>
+			</a>
+
+			<br>
+			<div class="panel panel-primary">
+			<div class="panel-heading">
+			Posts From
+			</div>
+			<div class="panel-body">
+			<form action="{% url 'blogger:blogmanager' %}" method="POST">
+			{% csrf_token %}
+			<input type="submit" name="datefilter" value="All Time" style="background:none; border-width:0px; color:blue;"/>
+			<br/>
+			{% for month,year in dates %}
+			<input type="submit" name="datefilter" value="{{ month }} {{ year }}" style="background:none; border-width:0px; color:blue;"/>
+			<br/>
+			{% endfor %}
+			</form>
+			</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<br/>
+	</div>
+</div>
+</div>
+</div>
 <br/>
-{% for blogpost in blogposts %}
-	<a href="{% url 'blogger:blogpostedit' blogpost.id %}"><p>{{ blogpost.blogpost_title }}</p></a>
-{% endfor %}
-<a href="{% url 'blogger:blogpostcreate' %}">Create a blogpost</a>
-<br/>
-<a href="{% url 'blogger:accountmanager' %}">Account Manager</a>
-<a href="{% url 'blogger:blog' blog.blog_title %}">To the blog</a>
-<a href="{% url 'blogger:logout' %}">Logout</a>
