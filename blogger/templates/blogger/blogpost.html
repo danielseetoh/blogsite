@@ -8,7 +8,7 @@
 <hr>
 <a href="{% url 'blogger:blog' blog.blog_title %}">
 <button type="button" class="btn btn-primary pull-right">Back to the blog</button></a>
-<h1>{{ blogpost.blogpost_title }}</h1>
+<h1>{{ blogpost.blogpost_title|linebreaksbr }}</h1>
 <small>&nbsp&nbsp&nbsp{{blogpost.pub_date}}</small>
 
 <div class="panel panel-default">	
@@ -16,7 +16,7 @@
 
 	<div class="col-md-12">
 	<p class="wordwrap">
-	{{blogpost.blogpost_text}}
+	{{blogpost.blogpost_text|linebreaksbr}}
 	</p>
 	</div>
 	{% if image %}

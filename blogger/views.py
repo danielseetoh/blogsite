@@ -19,7 +19,7 @@ import datetime
 
 # Create your views here.
 
-PREVIEW_TEXT_CHAR = 300;
+PREVIEW_TEXT_CHAR = 1000;
 
 def can_access(user, blogpost_id):
 	blogpost = get_object_or_404(BlogPost, pk=blogpost_id)

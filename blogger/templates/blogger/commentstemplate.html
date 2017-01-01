@@ -6,7 +6,7 @@
 		{% for comment in comments %}
 		<small class="pull-right">{{comment.pub_date}}</small>
 		<h4><b>{{ comment.commenter }}:</b></h4>
-		<p class="wordwrap">{{ comment.comment_content }}</p>
+		<p class="wordwrap">{{ comment.comment_content|linebreaksbr }}</p>
 		<hr>
 		{% endfor %}
 	{% else %}

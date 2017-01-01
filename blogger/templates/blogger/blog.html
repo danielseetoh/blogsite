@@ -10,7 +10,7 @@
 		<div class="col-md-9">
 		{% if blogposts %}
 			{% for blogpost,image,blogpost_text in blogposts %}
-			<h2>{{ blogpost.blogpost_title }}</h2>
+			<h2>{{ blogpost.blogpost_title|linebreaksbr }}</h2>
 			<small>&nbsp&nbsp&nbsp{{blogpost.pub_date}}</small>
 			<div class="panel panel-default blogpost">	
 				<div class="panel-body">
@@ -20,13 +20,13 @@
 					</div>
 					<div class="col-md-8">
 					<p class="wordwrap">
-					{{blogpost_text}}
+					{{blogpost_text|linebreaksbr}}
 					</p>
 					</div>
 					{% else %}
 					<div class="col-md-12">
 					<p class="wordwrap">
-					{{blogpost_text}}
+					{{blogpost_text|linebreaksbr}}
 					</p>
 					</div>
 					{% endif %}

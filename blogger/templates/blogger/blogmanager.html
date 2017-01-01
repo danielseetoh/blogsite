@@ -23,7 +23,7 @@
 			<div class="panel panel-default blogpost">
 				<div class="panel-heading">
 				
-				<h4 class="panel-title">{{ blogpost.blogpost_title }}</h4>
+				<h4 class="panel-title">{{ blogpost.blogpost_title|linebreaksbr }}</h4>
 				</div>
 				<div class="panel-body">
 					{% if image %}
@@ -32,13 +32,13 @@
 					</div>
 					<div class="col-md-8">
 					<p class="wordwrap">
-					{{blogpost_text}}
+					{{blogpost_text|linebreaksbr}}
 					</p>
 					</div>
 					{% else %}
 					<div class="col-md-12">
 					<p class="wordwrap">
-					{{blogpost_text}}
+					{{blogpost_text|linebreaksbr}}
 					</p>
 					</div>
 					{% endif %}
