@@ -1,6 +1,15 @@
 A blog site written in python django as a mini project to familiarise myself with this framework.
 
-TODO:
-Solve issue hosting static files/media files from users
-Set debug to false before uploading
-Use collect static in production
+Users are able to:
+Create blogs, delete blogs
+Post posts, edit posts, delete posts
+Upload an image per blogpost
+View other people’s blogs
+Post comments either anonymously or with their usernames
+Change their blog banner, blog background color, blog descriptions
+Filter posts based on month and year
+
+Anyone can view your blog at https://seetohblog.herokuapp.com/blogger/blog/{BLOG_TITLE}
+
+Stack:
+Python, Django, Bootstrap, Postgres, AWS(for static and media files), Heroku(hosting)

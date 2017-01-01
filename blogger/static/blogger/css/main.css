@@ -68,7 +68,7 @@
     color: red;
 }
 
-.navbar-fixed-bottom, .navbar-fixed-top {
+.navbar-fixed-bottom {
     position: absolute;
     right: 0;
     left: 0;
