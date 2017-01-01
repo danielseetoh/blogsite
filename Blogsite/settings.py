@@ -196,9 +196,9 @@ AWS_S3_HOST = 's3-ap-southeast-1.amazonaws.com'
 # if DEBUG == False:
     # AWS_QUERYSTRING_AUTH = False
 # edit this before pushing to production server
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', config.AWS_ACCESS_KEY_ID)
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY',config.AWS_SECRET_ACCESS_KEY)
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', config.AWS_STORAGE_BUCKET_NAME)
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID') or config.AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY') or config.AWS_SECRET_ACCESS_KEY
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME') or config.AWS_STORAGE_BUCKET_NAME
 # Tell django-storages that when coming up with the URL for an item in S3 storage, keep
 # it simple - just use this domain plus the path. (If this isn't set, things get complicated).
 # This controls how the `static` template tag from `staticfiles` gets expanded, if you're using it.
