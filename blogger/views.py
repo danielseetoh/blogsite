@@ -62,9 +62,9 @@ class SignupView(View):
 			password = form.cleaned_data['password']
 			email = form.cleaned_data['email']
 			blog_title = form.cleaned_data['blog_title']
-			if Blog.objects.filter(blog_title=blog_title).exists():
+			if Blog.objects.filter(blog_title__iexact=blog_title).exists():
 				return render(request, 'blogger/signup.html', {'error_message': 'Blog title already exists', 'form': form})
-			elif User.objects.filter(username=username).exists():
+			elif User.objects.filter(username__iexact=username).exists():
 				return render(request, 'blogger/signup.html', {'error_message': 'Username already exists', 'form': form})
 			else:
 				user = User.objects.create_user(username, email, password)
@@ -77,7 +77,7 @@ class SignupView(View):
 
 class BlogView(View):
 	def get(self, request, blog_title):
-		blog = get_object_or_404(Blog, pk=blog_title)
+		blog = get_object_or_404(Blog, pk__iexact=blog_title)
 		blogposts = blog.blogpost_set.all().order_by('-pub_date')
 		context = {
 			'blog': blog,
