@@ -24,7 +24,7 @@ import blogger.views
 urlpatterns = [
 	url(r'^$', blogger.views.IndexView.as_view()),
 	url(r'^blogger/', include('blogger.urls')),
-    url(r'^admin/', admin.site.urls),
+    # url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/', blogger.views.LoginView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
