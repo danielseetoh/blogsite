@@ -137,7 +137,7 @@ class BlogPostView(View):
 		blog = get_object_or_404(Blog, pk=blog_title)
 		blogpost = get_object_or_404(BlogPost, pk=blogpost_id)
 		comment_form = CommentForm(initial={'prev_url': 'blogpost'})
-		comments = blogpost.blogpostcomment_set.all()
+		comments = blogpost.blogpostcomment_set.all().order_by('pub-date')
 		if blogpost.blog != blog or blogpost.blogpost_title != blogpost_title:
 			return render(request, 'blogger/error.html')
 		context = {
@@ -285,7 +285,7 @@ class BlogPostEditView(View):
 			'blogpost_text': blogpost.blogpost_text,
 			
 		}
-		comments = blogpost.blogpostcomment_set.all()
+		comments = blogpost.blogpostcomment_set.all().order_by('pub-date')
 		comment_form = CommentForm(initial={'prev_url': 'blogpostedit'})
 		form = BlogPostForm(form_content)
 		context = {
