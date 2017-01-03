@@ -42,12 +42,21 @@ class LoginView(View):
 		if form.is_valid():
 			username = form.cleaned_data['username']
 			password = form.cleaned_data['password']
-			user = authenticate(username=username, password=password)
-			if user is not None:
-				login(request, user)
-				return HttpResponseRedirect(reverse('blogger:blogmanager'))
-			else:
+			try:
+				user = User.objects.get(username__iexact=username)
+				if user.check_password(password):
+					login(request, user)
+					return HttpResponseRedirect(reverse('blogger:blogmanager'))
+				else:
+					return render(request, 'blogger/login.html', {'error_message': 'Unable to log you in.', 'form': form})
+			except User.DoesNotExist:
 				return render(request, 'blogger/login.html', {'error_message': 'Unable to log you in.', 'form': form})
+			# user = authenticate(username__iexact=username, password=password)
+			# if user is not None:
+			# 	login(request, user)
+			# 	return HttpResponseRedirect(reverse('blogger:blogmanager'))
+			# else:
+			# 	return render(request, 'blogger/login.html', {'error_message': 'Unable to log you in.', 'form': form})
 		return render(request, 'blogger/login.html', {'form': form})
 
 class SignupView(View):
