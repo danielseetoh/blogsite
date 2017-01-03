@@ -343,8 +343,10 @@ def addBlogPostComment(request, blog_title, blogpost_id, blogpost_title):
 		comment_form = CommentForm(request.POST)
 		blogpost = get_object_or_404(BlogPost, pk=blogpost_id)
 		if comment_form.is_valid():
-			if request.user.username:
-				username = request.user.username
+			if request.POST['commenter']:
+				username = comment_form.cleaned_data['commenter']
+			# elif request.user.username:
+			# 	username = request.user.username
 			else:
 				username = 'Anonymous'
 			content = comment_form.cleaned_data['comment']

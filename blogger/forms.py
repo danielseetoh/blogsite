@@ -22,6 +22,7 @@ class BlogPostForm(forms.Form):
 
 class CommentForm(forms.Form):
 	comment = forms.CharField(label='', widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Write a comment'}))
+	commenter = forms.CharField(label='', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name'}), required=False)
 	prev_url = forms.CharField(widget=forms.HiddenInput())
 
 class BlogEditForm(forms.Form):
