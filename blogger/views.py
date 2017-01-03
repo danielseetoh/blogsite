@@ -249,17 +249,21 @@ class AccountManagerView(View):
 class BlogPostCreateView(View):
 	def get(self, request):
 		form = BlogPostForm()
+		blog = get_object_or_404(Blog, user=request.user)
 		context = {
 			'username': request.user.username,
 			'form': form,
+			'blog': blog,
 		}
 		return render(request, 'blogger/blogpostmanager.html', context)
 
 	def post(self, request):
 		form = BlogPostForm(request.POST, request.FILES)
+		blog = get_object_or_404(Blog, user=request.user)
 		context = {
 			'username': request.user.username,
 			'form': form,
+			'blog': blog,
 		}
 		if form.is_valid():
 			blog = get_object_or_404(Blog, user=request.user)
@@ -288,8 +292,10 @@ class BlogPostEditView(View):
 		comments = blogpost.blogpostcomment_set.all().order_by('pub_date')
 		comment_form = CommentForm(initial={'prev_url': 'blogpostedit'})
 		form = BlogPostForm(form_content)
+		blog = get_object_or_404(Blog, user=request.user)
 		context = {
 			'username': request.user.username,
+			'blog': blog,
 			'blogpost': blogpost,
 			'form': form,
 			'comment_form': comment_form,
@@ -305,8 +311,10 @@ class BlogPostEditView(View):
 			return HttpResponseRedirect(reverse('blogger:error'))
 		form = BlogPostForm(request.POST)
 		blogpost = get_object_or_404(BlogPost, pk=blogpost_id)
+		blog = get_object_or_404(Blog, user=request.user)
 		context = {
 			'username': request.user.username,
+			'blog': blog,
 			'blogpost': blogpost,
 			'form': form,
 		}

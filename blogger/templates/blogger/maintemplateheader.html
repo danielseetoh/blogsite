@@ -10,9 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    {% if blog %}
+    <title>{{ blog.blog_title }}</title>
+    {% else %}
     <title>Seetohblog - Lightweight Blogger</title>
-
+    {% endif %}
     <!-- Bootstrap Core CSS -->
     <link href="{% static 'blogger/css/bootstrap.min.css' %}" rel="stylesheet">
 
@@ -51,15 +53,17 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+                    {% if not blog %}
                     <li>
                         <a href="{% url 'blogger:index' %}#about">About</a>
                     </li>
                     <li>
                         <a href="{% url 'blogger:index' %}#contact">Contact</a>
                     </li>
+                    {% endif %}
                     {% if request.user.username %}
                     <li>
-                    	<a href="{% url 'blogger:blogmanager' %}">{{request.user.username}}</a>
+                    	<a href="{% url 'blogger:blogmanager' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp&nbsp{{request.user.username}}</a>
                 	</li>
                 	<li>
                 		<a href="{% url 'blogger:logout' %}">Logout</a>
