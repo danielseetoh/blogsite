@@ -110,7 +110,7 @@ class BlogView(View):
 		return render(request, 'blogger/blog.html', context)
 
 	def post(self, request, blog_title):
-		blog = get_object_or_404(Blog, user=request.user)
+		blog = get_object_or_404(Blog, pk__iexact=blog_title)
 		context = {
 			'username': request.user.username,
 			'blog': blog,
