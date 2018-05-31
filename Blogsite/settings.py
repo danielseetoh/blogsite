@@ -92,7 +92,6 @@ WSGI_APPLICATION = 'Blogsite.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    # Sensitive stuff here. Should think about shifting it to a hidden directory? Or is settings already hidden.
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'blogsite',

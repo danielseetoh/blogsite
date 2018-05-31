@@ -15,9 +15,8 @@ from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 from .models import *
 from .forms import *
+from collections import OrderedDict
 import datetime
-
-# Create your views here.
 
 PREVIEW_TEXT_CHAR = 1000;
 
@@ -51,12 +50,6 @@ class LoginView(View):
 					return render(request, 'blogger/login.html', {'error_message': 'Unable to log you in.', 'form': form})
 			except User.DoesNotExist:
 				return render(request, 'blogger/login.html', {'error_message': 'Unable to log you in.', 'form': form})
-			# user = authenticate(username__iexact=username, password=password)
-			# if user is not None:
-			# 	login(request, user)
-			# 	return HttpResponseRedirect(reverse('blogger:blogmanager'))
-			# else:
-			# 	return render(request, 'blogger/login.html', {'error_message': 'Unable to log you in.', 'form': form})
 		return render(request, 'blogger/login.html', {'form': form})
 
 class SignupView(View):
@@ -93,18 +86,16 @@ class BlogView(View):
 			'blogposts': [],
 			'dates': [],
 		}
+		dates = []
 		for blogpost in blogposts:
 			image_count = blogpost.imagedoc_set.all().count()
 			if image_count>0:
 				context['blogposts'].append((blogpost,blogpost.imagedoc_set.all()[image_count-1], blogpost.blogpost_text[:PREVIEW_TEXT_CHAR]))
 			else:
 				context['blogposts'].append((blogpost, '', blogpost.blogpost_text[:PREVIEW_TEXT_CHAR]))
-		if blogposts.count()>0:
-			oldest_blog_date = blogposts[blogposts.count()-1].pub_date
-			now = timezone.now()
-			while now>=oldest_blog_date or (now.month==oldest_blog_date.month and now.year==oldest_blog_date.year):
-				context['dates'].append((now.strftime('%B'),now.year))
-				now = now - relativedelta(months=1)
+			dates.append(timezone.localtime(blogpost.pub_date))
+		dates = [(date.strftime('%B'),date.year) for date in dates]
+		context['dates'] = list(OrderedDict.fromkeys(dates))
 		if self.request.user.is_authenticated():
 			context['username'] = request.user.username
 		return render(request, 'blogger/blog.html', context)
@@ -117,6 +108,7 @@ class BlogView(View):
 			'blogposts': [],
 			'dates': [],
 		}
+		dates = []
 		if 'datefilter' in request.POST:
 			datetime = request.POST['datefilter']
 			if datetime == 'All Time':
@@ -132,13 +124,12 @@ class BlogView(View):
 				context['blogposts'].append((blogpost,blogpost.imagedoc_set.all()[image_count-1], blogpost.blogpost_text[:PREVIEW_TEXT_CHAR]))
 			else:
 				context['blogposts'].append((blogpost, '', blogpost.blogpost_text[:PREVIEW_TEXT_CHAR]))
+
 		blogposts = blog.blogpost_set.all().order_by('-pub_date')
-		if blogposts.count()>0:
-			oldest_blog_date = blogposts[blogposts.count()-1].pub_date
-			now = timezone.now()
-			while now>=oldest_blog_date or (now.month==oldest_blog_date.month and now.year==oldest_blog_date.year):
-				context['dates'].append((now.strftime('%B'),now.year))
-				now = now - relativedelta(months=1)
+		dates = [timezone.localtime(blogpost.pub_date) for blogpost in blogposts]
+		dates = [(date.strftime('%B'),date.year) for date in dates]
+		context['dates'] = list(OrderedDict.fromkeys(dates))
+
 		return render(request, 'blogger/blog.html', context)
 
 class BlogPostView(View):
@@ -172,19 +163,16 @@ class BlogManagerView(View):
 			'blogposts': [],
 			'dates': []
 		}
+		dates = []
 		for blogpost in blogposts:
 			image_count = blogpost.imagedoc_set.all().count()
 			if image_count>0:
 				context['blogposts'].append((blogpost,blogpost.imagedoc_set.all()[image_count-1], blogpost.blogpost_text[:PREVIEW_TEXT_CHAR]))
 			else:
 				context['blogposts'].append((blogpost, '', blogpost.blogpost_text[:PREVIEW_TEXT_CHAR]))
-		if blogposts.count()>0:
-			oldest_blog_date = blogposts[blogposts.count()-1].pub_date
-			now = timezone.now()
-			while now>=oldest_blog_date or (now.month==oldest_blog_date.month and now.year==oldest_blog_date.year):
-				context['dates'].append((now.strftime('%B'),now.year))
-
-				now = now - relativedelta(months=1)
+			dates.append(timezone.localtime(blogpost.pub_date))
+		dates = [(date.strftime('%B'),date.year) for date in dates]
+		context['dates'] = list(OrderedDict.fromkeys(dates))
 		return render(request, 'blogger/blogmanager.html', context)
 	def post(self, request):
 		blog = get_object_or_404(Blog, user=request.user)
@@ -194,6 +182,7 @@ class BlogManagerView(View):
 			'blogposts': [],
 			'dates': [],
 		}
+		dates = []
 		if 'datefilter' in request.POST:
 			datetime = request.POST['datefilter']
 			if datetime == 'All Time':
@@ -209,13 +198,12 @@ class BlogManagerView(View):
 				context['blogposts'].append((blogpost,blogpost.imagedoc_set.all()[image_count-1], blogpost.blogpost_text[:PREVIEW_TEXT_CHAR]))
 			else:
 				context['blogposts'].append((blogpost, '', blogpost.blogpost_text[:PREVIEW_TEXT_CHAR]))
+
 		blogposts = blog.blogpost_set.all().order_by('-pub_date')
-		if blogposts.count()>0:
-			oldest_blog_date = blogposts[blogposts.count()-1].pub_date
-			now = timezone.now()
-			while now>=oldest_blog_date or (now.month==oldest_blog_date.month and now.year==oldest_blog_date.year):
-				context['dates'].append((now.strftime('%B'),now.year))
-				now = now - relativedelta(months=1)
+		dates = [timezone.localtime(blogpost.pub_date) for blogpost in blogposts]
+		dates = [(date.strftime('%B'),date.year) for date in dates]
+		context['dates'] = list(OrderedDict.fromkeys(dates))
+
 		return render(request, 'blogger/blogmanager.html', context)
 
 @method_decorator(login_required, name='get')
@@ -243,7 +231,6 @@ class AccountManagerView(View):
 				logout(request)
 				user.delete()
 				return HttpResponseRedirect(reverse('blogger:index'))
-				# return render(request, 'blogger/index.html')
 			
 			blog.blog_description = form.cleaned_data['blog_description']
 			blog.blog_background_color = form.cleaned_data['blog_background_color']
@@ -251,7 +238,6 @@ class AccountManagerView(View):
 				blog.blog_banner = form.cleaned_data['blog_banner']
 			blog.save()
 		return HttpResponseRedirect(reverse('blogger:blogmanager'))
-		# return render(request, 'blogger/accountmanager.html')
 
 @method_decorator(login_required, name='get')
 @method_decorator(login_required, name='post')
@@ -295,8 +281,7 @@ class BlogPostEditView(View):
 		blogpost = get_object_or_404(BlogPost, pk=blogpost_id)
 		form_content = {
 			'blogpost_title': blogpost.blogpost_title,
-			'blogpost_text': blogpost.blogpost_text,
-			
+			'blogpost_text': blogpost.blogpost_text,	
 		}
 		comments = blogpost.blogpostcomment_set.all().order_by('pub_date')
 		comment_form = CommentForm(initial={'prev_url': 'blogpostedit'})
@@ -362,8 +347,6 @@ def addBlogPostComment(request, blog_title, blogpost_id, blogpost_title):
 		if comment_form.is_valid():
 			if request.POST['commenter']:
 				username = comment_form.cleaned_data['commenter']
-			# elif request.user.username:
-			# 	username = request.user.username
 			else:
 				username = 'Anonymous'
 			content = comment_form.cleaned_data['comment']
