@@ -12,4 +12,4 @@ Filter posts based on month and year
 Anyone can view your blog at https://seetohblog.herokuapp.com/blogger/blog/{BLOG_TITLE}
 
 Stack:
-Python, Django, Bootstrap, Postgres, AWS(for static and media files), Heroku(hosting)
+Python, Django, Bootstrap, Postgres, AWS S3(for static and media files), Heroku(hosting)
