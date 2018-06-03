@@ -1,4 +1,4 @@
-#SeetohBlog
+# SeetohBlog
 
 A blog site written in python django as a mini project to familiarise myself with this framework.
 
@@ -13,5 +13,5 @@ Filter posts based on month and year
 
 Anyone can view your blog at https://seetohblog.herokuapp.com/blogger/blog/{BLOG_TITLE}
 
-Stack:
+## Stack:
 Python Django, Bootstrap for UI, Postgres, AWS S3(for static and media files), Heroku(hosting)
